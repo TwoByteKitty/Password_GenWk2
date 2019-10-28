@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1, shrink-to-fit=no">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <title>Password Generator</title>
+</head>
+
+<body class="bg-light">
+    <div class="container-fluid m-3">
+        <div class="row header">
+            <div class="col">
+                <h1 class="text-center mx-3">Password Generator</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mb-3 pb-4">Generate a Password</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <span id="pwDisplay"></span>
+                                </div>
+                            </div>
+                            <div class="row pw-buttons">
+                                <div class="col-md-6 text-center">
+                                    <button type="button" class="btn btn-primary btn-lg" id="genPwButton">Generate
+                                        Password</button>
+                                </div>
+                                <div class="col-md-6 text-center copy-pw-button">
+                                    <button type="button" class="btn btn-secondary btn-lg" disabled>Copy to
+                                        Clipboard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var alphaCapsArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        var alphaLowerArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        var numArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var charArr = ["!", "@", "$", "%", "&", "*"];
+
+        var isValid = false;
+        var useLower = false;
+        var useUpper = false;
+        var useNum = false;
+        var useChar = false;
+
+        var minLength = 8;
+        var maxlength = 128;
+        var length = minLength;
+        var outputId = "pwDisplay";
+        var buttonId = "genPwButton";
+
+        //get char types from user
+        function promptUserForCharacters() {
+            useLower = confirm("Use lowercase letters?");
+            useUpper = confirm("Use uppercase letters?");
+            useNum = confirm("Use numbers?");
+            useChar = confirm("Use special characters?");
+        }
+
+        //build array to pick PW from
+        function buildArray() {
+            var pwCharacterArray = [];
+            if (useLower) {
+                pwCharacterArray = pwCharacterArray.concat(alphaLowerArr);
+            }
+            if (useUpper) {
+                pwCharacterArray = pwCharacterArray.concat(alphaCapsArr);
+            }
+            if (useNum) {
+                pwCharacterArray = pwCharacterArray.concat(numArr);
+            }
+            if (useChar) {
+                pwCharacterArray = pwCharacterArray.concat(charArr);
+            }
+            return pwCharacterArray;
+        }
+
+        //show pw in document
+        function showPw(password) {
+            document.getElementById(outputId).innerHTML = password;
+        }
+
+        //generate Password
+        function genPw() {
+            //Build array of values
+            var charArray = buildArray();
+            //Array to greate password from
+            var pwArray = [];
+            //loop that runs as long as the user requested pw
+            for (let i = 0; i < length; i++) {
+                //Get random index in charArray
+                var arrayIndexToPick = Math.floor(
+                    Math.random() * Math.floor(charArray.length)
+                );
+                pwArray.push(charArray[arrayIndexToPick]);
+            }
+            showPw(pwArray.join(""));
+        }
+
+        //get input from user
+        function getInput() {
+            length = Number.parseInt(prompt("Password length", length));
+            if (!(minLength < length < maxlength)) {
+                length = Number.parseInt(prompt(
+                    "Password must be between 8 and 128 characters. Try Again",
+                    length
+                ));
+            }
+            promptUserForCharacters();
+            isValid = useLower || useUpper || useNum || useChar;
+            if (!isValid) {
+                promptUserForCharacters();
+            }
+            genPw();
+        }
+        document.getElementById(buttonId).addEventListener("click", getInput);
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

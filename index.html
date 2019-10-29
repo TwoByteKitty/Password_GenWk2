@@ -12,20 +12,26 @@
     <div class="container-fluid m-3">
         <div class="row header">
             <div class="col">
-                <h1 class="text-center mx-3">Password Generator</h1>
+                <h1 class="text-center mx-4">Password Generator</h1>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="card shadow">
+                <div class="card shadow  mt-3">
                     <div class="card-body">
-                        <h2 class="card-title mb-3 pb-4">Generate a Password</h2>
+                        <h2 class="card-title pl-2 mb-2 pb-2">Generate a Password</h2>
+                        <hr class="mb-4">
                         <div class="container">
                             <div class="row">
-                                <div class="col">
-                                    <span id="pwDisplay"></span>
+                                <div class="col alert">
+                                    <div class="alert" style= "min-height: 200px; border: solid; border-color: lightgray;
+                                    border-width: thin;" role="alert">
+                                        <span class="display-3 mb-0" style= "display: block; min-height: 190px; border: dashed; border-color: lightgray;
+                                        border-width: thin;" id="pwdDispl"></span>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="row pw-buttons">
@@ -61,7 +67,7 @@
         var minLength = 8;
         var maxlength = 128;
         var length = minLength;
-        var outputId = "pwDisplay";
+        var outputId = "pwdDisplay";
         var buttonId = "genPwButton";
 
         //get char types from user

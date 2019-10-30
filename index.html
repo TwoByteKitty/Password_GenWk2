@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1, shrink-to-fit=no">
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Password Generator</title>
 </head>
 
@@ -26,22 +28,21 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col alert">
-                                    <div class="alert" style= "min-height: 200px; border: solid; border-color: lightgray;
+                                    <div class="alert alert-info" style="min-height: 200px; border: solid; border-color: rgb(143, 143, 143);
                                     border-width: thin;" role="alert">
-                                        <span class="display-3 mb-0" style= "display: block; min-height: 190px; border: dashed; border-color: lightgray;
-                                        border-width: thin;" id="pwdDispl"></span>
+                                        <div class="display-3 mb-0 text-center pt-5" style="display: block; min-height: 190px; border: dashed; border-color: rgb(143, 143, 143);
+                                        border-width: thin;" id="pwdDisplay"></div>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="row pw-buttons">
                                 <div class="col-md-6 text-center">
-                                    <button type="button" class="btn btn-primary btn-lg" id="genPwButton">Generate
+                                    <button type="button" class="btn btn-info btn-lg" id="genPwButton">Generate
                                         Password</button>
                                 </div>
                                 <div class="col-md-6 text-center copy-pw-button">
-                                    <button type="button" class="btn btn-secondary btn-lg" disabled>Copy to
-                                        Clipboard</button>
+                                    <button type="button" class="btn btn-secondary btn-lg" id="copy">Copy to Clipboard</button>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +68,7 @@
         var minLength = 8;
         var maxlength = 128;
         var length = minLength;
-        var outputId = "pwdDisplay";
+        var outputId = "pwdDisplay"
         var buttonId = "genPwButton";
 
         //get char types from user
@@ -105,7 +106,7 @@
         function genPw() {
             //Build array of values
             var charArray = buildArray();
-            //Array to greate password from
+            //Array to create password from
             var pwArray = [];
             //loop that runs as long as the user requested pw
             for (let i = 0; i < length; i++) {
@@ -135,6 +136,20 @@
             genPw();
         }
         document.getElementById(buttonId).addEventListener("click", getInput);
+
+        //Copy password to clipboard
+     /*   function copy() {
+            var copyText = document.querySelector("#pwdDisplay");
+            copyText.select();
+            document.execCommand("copy");
+        }
+
+        document.querySelector("#copy").addEventListener("click", copy);  */
+       
+        //couldn't get above to work
+
+
+
     </script>
 
 

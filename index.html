@@ -127,16 +127,16 @@
             showPw(pwArray.join(""));
         }
 
-        //get input from user: eventNeeded due clickEvent
+        //get input from user: event needed because of click event
         function getInput(event, promptText = "Password length") {
             var lengthInput = prompt(promptText);
             if (lengthInput) {
                 length = Number.parseInt(lengthInput);
                 if (isNaN(length)) {
-                    getInput(null, "Password length must be a NUMBER between 8 and 128 characters. Try Again");
+                    getInput(null, "Password length must be a NUMBER between 8 and 128 characters. Try again.");
                 }
                 else if (length < minLength || length > maxLength) {
-                    getInput(null, "Password must be between 8 and 128 characters. Try Again");
+                    getInput(null, "Password must be between 8 and 128 characters. Try again.");
                 } else {
                     promptUserForCharacters();
                     genPw();

@@ -42,7 +42,8 @@
                                         Password</button>
                                 </div>
                                 <div class="col-md-6 text-center copy-pw-button">
-                                    <button type="button" class="btn btn-secondary btn-lg" id="copy">Copy to Clipboard</button>
+                                    <button type="button" class="btn btn-secondary btn-lg" id="copy">Copy to
+                                        Clipboard</button>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +67,7 @@
         var useChar = false;
 
         var minLength = 8;
-        var maxlength = 128;
+        var maxLength = 128;
         var length = minLength;
         var outputId = "pwdDisplay"
         var buttonId = "genPwButton";
@@ -77,6 +78,13 @@
             useUpper = confirm("Use uppercase letters?");
             useNum = confirm("Use numbers?");
             useChar = confirm("Use special characters?");
+            isValid = useLower || useUpper || useNum || useChar;
+            if (!isValid) {
+                var proceed = confirm("Please choose at least one character type.");
+                if (proceed) {
+                    promptUserForCharacters();
+                }
+            }
         }
 
         //build array to pick PW from
@@ -119,34 +127,24 @@
             showPw(pwArray.join(""));
         }
 
-        //get input from user
-        function getInput() {
-            length = Number.parseInt(prompt("Password length", length));
-            if (!(minLength < length < maxlength)) {
-                length = Number.parseInt(prompt(
-                    "Password must be between 8 and 128 characters. Try Again",
-                    length
-                ));
+        //get input from user: eventNeeded due clickEvent
+        function getInput(event, promptText = "Password length") {
+            var lengthInput = prompt(promptText);
+            if (lengthInput) {
+                length = Number.parseInt(lengthInput);
+                if (isNaN(length)) {
+                    getInput(null, "Password length must be a NUMBER between 8 and 128 characters. Try Again");
+                }
+                else if (length < minLength || length > maxLength) {
+                    getInput(null, "Password must be between 8 and 128 characters. Try Again");
+                } else {
+                    promptUserForCharacters();
+                    genPw();
+                }
+
             }
-            promptUserForCharacters();
-            isValid = useLower || useUpper || useNum || useChar;
-            if (!isValid) {
-                promptUserForCharacters();
-            }
-            genPw();
         }
         document.getElementById(buttonId).addEventListener("click", getInput);
-
-        //Copy password to clipboard
-     /*   function copy() {
-            var copyText = document.querySelector("#pwdDisplay");
-            copyText.select();
-            document.execCommand("copy");
-        }
-
-        document.querySelector("#copy").addEventListener("click", copy);  */
-       
-        //couldn't get above to work
 
 
 
